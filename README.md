@@ -84,3 +84,10 @@ Unit tests cover the ordering rules:
   cached; use **Rescan** after adding files.
 - `minSdk 26` (Android 8.0), `targetSdk 36`.
 - Application ID `com.maryumcenter.iqraaudioplayer`.
+- The launcher icon is generated from `iqraaudioplayer-logo.svg`, converted to
+  VectorDrawables in `res/drawable/`. It is scaled to 60dp inside the 108dp
+  adaptive-icon canvas, which keeps every opaque pixel within the 33dp-radius
+  safe circle that round launcher masks crop to (measured max radius 32.6dp).
+  The themed/monochrome layer drops the gold paths, since Android tints the
+  whole drawable one colour and the gold would otherwise flatten the shape into
+  a solid blob.
