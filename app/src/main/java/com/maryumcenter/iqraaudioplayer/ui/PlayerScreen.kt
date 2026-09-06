@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
@@ -78,6 +79,7 @@ fun PlayerScreen(
     onSeekBack: () -> Unit,
     onSeekForward: () -> Unit,
     onSeekTo: (Long) -> Unit,
+    onToggleRepeat: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -122,6 +124,7 @@ fun PlayerScreen(
                     onSeekBack = onSeekBack,
                     onSeekForward = onSeekForward,
                     onSeekTo = onSeekTo,
+                    onToggleRepeat = onToggleRepeat,
                 )
             }
         },
@@ -274,6 +277,7 @@ private fun NowPlayingBar(
     onSeekBack: () -> Unit,
     onSeekForward: () -> Unit,
     onSeekTo: (Long) -> Unit,
+    onToggleRepeat: () -> Unit,
 ) {
     // While the user drags the slider we show their position, not the player's.
     var scrubPosition by remember { mutableStateOf<Float?>(null) }
@@ -322,8 +326,25 @@ private fun NowPlayingBar(
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(formatTime(position), style = MaterialTheme.typography.labelMedium)
+                IconButton(onClick = onToggleRepeat) {
+                    Icon(
+                        imageVector = Icons.Filled.Repeat,
+                        contentDescription = if (state.repeatAll) {
+                            "Repeat all, on. Tap to stop at the last track."
+                        } else {
+                            "Repeat all, off. Tap to loop the folder."
+                        },
+                        tint = if (state.repeatAll) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f)
+                        },
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
                 Text(formatTime(duration), style = MaterialTheme.typography.labelMedium)
             }
 

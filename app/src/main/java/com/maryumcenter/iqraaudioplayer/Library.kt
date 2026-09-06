@@ -43,6 +43,14 @@ class Library private constructor(context: Context) {
     private val _scanning = MutableStateFlow(prefs.getString(KEY_ROOT, null) != null)
     val scanning: StateFlow<Boolean> = _scanning.asStateFlow()
 
+    /**
+     * Whether the queue wraps from the last file back to the first. Persisted so
+     * a shared tablet keeps the setting a teacher chose once.
+     */
+    var repeatAll: Boolean
+        get() = prefs.getBoolean(KEY_REPEAT, false)
+        set(value) = prefs.edit { putBoolean(KEY_REPEAT, value) }
+
     val savedTrackIndex: Int get() = prefs.getInt(KEY_INDEX, 0)
     val savedPositionMs: Long get() = prefs.getLong(KEY_POSITION, 0L)
 
@@ -201,6 +209,7 @@ class Library private constructor(context: Context) {
         private const val KEY_ROOT_LABEL = "root_label"
         private const val KEY_INDEX = "track_index"
         private const val KEY_POSITION = "track_position"
+        private const val KEY_REPEAT = "repeat_all"
 
         @Volatile
         private var instance: Library? = null

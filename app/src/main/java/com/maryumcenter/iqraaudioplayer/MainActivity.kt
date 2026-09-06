@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
                     onSeekBack = viewModel::seekBack,
                     onSeekForward = viewModel::seekForward,
                     onSeekTo = viewModel::seekTo,
+                    onToggleRepeat = viewModel::toggleRepeat,
                 )
             }
         }

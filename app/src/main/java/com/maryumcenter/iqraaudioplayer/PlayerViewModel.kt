@@ -32,6 +32,7 @@ data class PlayerUiState(
     val connected: Boolean = false,
     val currentIndex: Int = -1,
     val isPlaying: Boolean = false,
+    val repeatAll: Boolean = false,
 ) {
     val currentTrack: Track?
         get() = tracks.getOrNull(currentIndex)
@@ -80,6 +81,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             connected = state.connected,
             currentIndex = state.currentIndex,
             isPlaying = state.isPlaying,
+            repeatAll = state.repeatAll,
         )
     }.stateIn(viewModelScope, SharingStarted.Eagerly, snapshot())
 
@@ -88,6 +90,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         rootLabel = library.rootLabel.value,
         tracks = library.tracks.value,
         scanning = library.scanning.value,
+        repeatAll = library.repeatAll,
     )
 
     private val playerListener = object : Player.Listener {
@@ -146,6 +149,16 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /** Wraps the queue from the last file back to the first, or stops at the end. */
+    fun toggleRepeat() {
+        val active = controller ?: return
+        val turningOn = active.repeatMode == Player.REPEAT_MODE_OFF
+        active.repeatMode =
+            if (turningOn) Player.REPEAT_MODE_ALL else Player.REPEAT_MODE_OFF
+        library.repeatAll = turningOn
+        readPlayerState()
+    }
+
     fun next() {
         controller?.seekToNext()
     }
@@ -186,6 +199,8 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
                 }
                 controller = active
                 active.addListener(playerListener)
+                active.repeatMode =
+                    if (library.repeatAll) Player.REPEAT_MODE_ALL else Player.REPEAT_MODE_OFF
                 readPlayerState()
                 controllerReady.complete(active)
             },
@@ -271,6 +286,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             connected = true,
             isPlaying = active.isPlaying,
             currentIndex = if (active.mediaItemCount > 0) active.currentMediaItemIndex else -1,
+            repeatAll = active.repeatMode != Player.REPEAT_MODE_OFF,
         )
         _progress.value = Progress(
             positionMs = active.currentPosition.coerceAtLeast(0L),
@@ -309,4 +325,5 @@ private data class PlayerStatus(
     val connected: Boolean = false,
     val isPlaying: Boolean = false,
     val currentIndex: Int = -1,
+    val repeatAll: Boolean = false,
 )

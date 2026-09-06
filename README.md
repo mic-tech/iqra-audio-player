@@ -15,6 +15,9 @@ audio files, and queues them up as one continuous alphabetical playlist.
   `track2` comes before `track10`, and `Disc 2` before `Disc 10`. Case is ignored.
 - **Now-playing bar** with the track title, its folder, a scrubbable seek bar with
   elapsed/total time, previous / −10s / play-pause / +10s / next.
+- **Repeat toggle** in the player bar. Off by default: playback stops after the
+  last file. Turned on, the queue wraps back to the first file and keeps going.
+  The setting is remembered across restarts.
 - **Track list** grouped by folder, with the playing track highlighted; the list
   follows along as the queue advances. Tap any track to jump to it.
 - **Background playback** with a system media notification, lock-screen and
