@@ -33,10 +33,13 @@ import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -103,6 +106,28 @@ fun PlayerScreen(
                 },
                 actions = {
                     if (state.hasRoot) {
+                        // A toggle rather than a plain action: off it looks like
+                        // its neighbours, on it gets a filled container, so the
+                        // state is readable at a glance across the room.
+                        FilledIconToggleButton(
+                            checked = state.repeatAll,
+                            onCheckedChange = { onToggleRepeat() },
+                            colors = IconButtonDefaults.filledIconToggleButtonColors(
+                                containerColor = Color.Transparent,
+                                contentColor = LocalContentColor.current,
+                                checkedContainerColor = MaterialTheme.colorScheme.primary,
+                                checkedContentColor = MaterialTheme.colorScheme.onPrimary,
+                            ),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Repeat,
+                                contentDescription = if (state.repeatAll) {
+                                    "Repeat all, on. Tap to stop at the last track."
+                                } else {
+                                    "Repeat all, off. Tap to loop the folder."
+                                },
+                            )
+                        }
                         IconButton(onClick = onRescan, enabled = !state.scanning) {
                             Icon(Icons.Filled.Refresh, contentDescription = "Rescan folder")
                         }
@@ -124,7 +149,6 @@ fun PlayerScreen(
                     onSeekBack = onSeekBack,
                     onSeekForward = onSeekForward,
                     onSeekTo = onSeekTo,
-                    onToggleRepeat = onToggleRepeat,
                 )
             }
         },
@@ -277,7 +301,6 @@ private fun NowPlayingBar(
     onSeekBack: () -> Unit,
     onSeekForward: () -> Unit,
     onSeekTo: (Long) -> Unit,
-    onToggleRepeat: () -> Unit,
 ) {
     // While the user drags the slider we show their position, not the player's.
     var scrubPosition by remember { mutableStateOf<Float?>(null) }
@@ -326,25 +349,8 @@ private fun NowPlayingBar(
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(formatTime(position), style = MaterialTheme.typography.labelMedium)
-                IconButton(onClick = onToggleRepeat) {
-                    Icon(
-                        imageVector = Icons.Filled.Repeat,
-                        contentDescription = if (state.repeatAll) {
-                            "Repeat all, on. Tap to stop at the last track."
-                        } else {
-                            "Repeat all, off. Tap to loop the folder."
-                        },
-                        tint = if (state.repeatAll) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.45f)
-                        },
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
                 Text(formatTime(duration), style = MaterialTheme.typography.labelMedium)
             }
 
