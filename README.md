@@ -91,3 +91,7 @@ Unit tests cover the ordering rules:
   The themed/monochrome layer drops the gold paths, since Android tints the
   whole drawable one colour and the gold would otherwise flatten the shape into
   a solid blob.
+
+## License
+
+Released under the [MIT License](LICENSE) — Copyright (c) 2026 Maryum Center Tech.
