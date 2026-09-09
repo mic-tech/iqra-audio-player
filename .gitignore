@@ -7,3 +7,9 @@ build/
 captures/
 .externalNativeBuild/
 .cxx/
+
+# Play App Signing artifacts — output.zip carries the exported private key
+output.zip
+pepk.jar
+pepk-src.jar
+encryption_public_key.pem
