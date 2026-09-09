@@ -1,0 +1,7 @@
+Play a whole folder of audio in order. Offline, ad-free, nothing collected.
+
+# Alternatives (pick one, 80 char limit):
+# Pick a folder. Everything inside plays in order, sub-folders included.
+# Folder-based audio player for Quran, audiobooks and lecture series.
+# Plays your audio folders in order, remembers your place, works offline.
+# One folder in, one playlist out. No ads, no account, no internet.

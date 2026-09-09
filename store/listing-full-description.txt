@@ -1,0 +1,40 @@
+IQRA Audio Player plays a folder of audio files from beginning to end, in order.
+
+Point it at a folder on your device and every audio file inside it, including everything in its sub-folders, becomes one continuous playlist. There are no playlists to build, no library to import, and no account to create.
+
+BUILT FOR FOLDER-ORGANISED AUDIO
+
+Ideal for Quran recitations, audiobooks, lecture series, language courses, and anything else that arrives as a numbered set of files. If the order of the files matters, this player keeps it.
+
+ORDERING THAT MAKES SENSE
+
+Tracks are ordered by folder first, then by file name, and numbers are compared as numbers. Track 2 comes before Track 10, and Disc 2 before Disc 10, instead of the jumbled order plain alphabetical sorting gives you.
+
+THE CONTROLS YOU EXPECT
+
+- A scrubbable seek bar with elapsed and remaining time
+- Previous, next, and ten-second skip in both directions
+- Keeps playing in the background, with controls in the notification and on the lock screen
+- Works with Bluetooth headsets and car stereos
+- Pauses automatically when you unplug your headphones
+- An optional repeat mode that loops the whole folder
+
+PICKS UP WHERE YOU LEFT OFF
+
+Close the app and come back tomorrow: it resumes on the same track, at the same position. Your repeat setting is remembered too. On a shared device, that means the next person starts where the last one stopped.
+
+PRIVATE BY DESIGN
+
+The app does not request internet access, so it is incapable of sending anything anywhere. There are no advertisements, no analytics, no tracking, and no sign-in. The only things it saves are the folder you chose, your playback position, and your repeat setting, and all of it stays on your device.
+
+READS YOUR FILES, CHANGES NOTHING
+
+Choosing a folder grants read-only access to that folder alone. The app never modifies, moves, deletes, or copies your files, and it cannot see anything outside the folder you picked.
+
+FORMATS
+
+MP3 is the focus. M4A, M4B, AAC, FLAC, OGG, OPUS, WAV, WMA and MKA play too.
+
+OPEN SOURCE
+
+The complete source code, including the manifest listing every permission the app requests, is published at github.com/mic-tech/iqra-audio-player
